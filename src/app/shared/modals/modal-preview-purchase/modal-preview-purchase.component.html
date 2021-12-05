@@ -1,0 +1,25 @@
+<header>
+  <h1>
+    Select the quantity of this product
+  </h1>
+</header>
+<section>
+  <div class="card">
+    <img src="{{item.img}}"/>
+    <span>{{ item.title }}</span>
+  </div>
+  <p id="description">{{item.description}}</p>
+  <div id="quantity">
+    <span>Quantity:</span>
+    <div class="count">
+      <button class="button-count" (click)="decrementCount()">-</button>
+      <span>{{ count }}</span>
+      <button class="button-count" (click)="additionCount()">+</button>
+    </div>
+  </div>
+  <p id="price">Total: R$ {{ total }}</p>
+</section>
+<nav>
+  <button id="add-to-cart-button" (click)="addToCart()">Add to cart</button>
+  <button id="cancel-button" (click)="dismiss()">Cancel</button>
+</nav>

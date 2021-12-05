@@ -1,20 +1,16 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<nav>
+  <ion-icon size="large" name="cart-outline" (click)="redirectToCart()"></ion-icon>
+</nav>
+<header id="first-header"></header>
+<h1 class="ion-text-center" id="section-title">Items</h1>
+<section>
+  <ng-container *ngFor="let item of items">
+    <ion-card class="card-item" (click)="previewModal(item)">
+      <img src="{{item.img}}" alt="">
+      <span>{{item.title}}</span>
+      <span>R$ {{item.value}}</span>
+    </ion-card>
+  </ng-container>
+</section>
 </ion-content>

@@ -1,0 +1,92 @@
+section{
+    .card{
+        width: 85%;
+        max-height: 10rem;
+        background-color: var(--ion-color-dark);
+        box-shadow: none;
+        margin: 0 auto;
+        display: flex;
+        padding: 1rem;
+        img{
+            max-width: 6rem;
+            max-height: 6rem;
+        }
+        span{
+            padding: 1rem 0.3rem 1rem 1rem;
+            font-weight: 500;            
+            color: var(--ion-color-light);
+        }
+    }
+    #description{
+        padding: 0.5rem 2rem;
+        text-align: justify;
+        opacity: 0.7;
+    }
+    #price{
+        padding: 0.3rem 2rem;
+        text-align: justify;
+        font-weight: bold;
+        opacity: 0.7;
+    }
+    #quantity{
+        display: flex;
+        align-items: center;
+        padding: 0rem 2rem;
+        span{
+            font-weight: bold;
+            opacity: 0.7;
+            margin-right: 1rem;
+        }
+        .count{
+            display: flex;
+            justify-content: center;
+            button{
+                width: 2.3rem;
+                height: 2.3rem;
+                background-color:  #2dd36f;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+            }
+            span{
+                display: flex;
+                margin: auto 1rem;
+                align-items: center;
+                opacity: 0.7;
+            }
+        }
+    }
+}
+header{
+    h1{
+        font-size: 1.3rem;
+        padding: 2rem 6rem 0rem 2rem;
+    }
+}
+::ng-deep .ion-page{
+    justify-content: flex-start !important;
+}
+
+::ng-deep .alert-button-inner{
+    color:  #2dd36f;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    button{
+        margin: 0.5rem 2rem;
+        height: 2rem;
+        &:first-child{
+            background-color:  #2dd36f;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        &:last-child{
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    }
+}

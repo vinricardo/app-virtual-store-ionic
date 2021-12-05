@@ -1,0 +1,90 @@
+::ng-deep .ion-page{
+    justify-content: flex-start !important;
+}
+
+nav,header{
+    padding: 1rem 2rem 0rem 2rem;
+}
+
+header{
+    h2{
+        font-size: 1rem;
+    }
+}
+.card-item{
+    background-color: var(--ion-color-dark);
+    color: var(--ion-color-light);
+    display: flex;
+    align-items: center;
+    margin: 1rem 2rem;
+    padding: 0.5rem 1rem;
+    img{
+        width: 3rem;
+        height: 3rem;
+    }
+    #title{
+        padding: 1rem;
+    }
+    #infos{
+        display: flex;
+        flex-direction: column;
+    }
+    #money-info{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin: auto 1rem;
+        font-weight: 500;
+    }
+    #value{
+        color:  #2dd36f;
+    }
+}
+
+#cart-list{
+    max-height: 58%;
+    overflow-y: scroll;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    button{
+        margin: 0.5rem 0;
+        height: 2rem;
+        &:first-child{
+            background-color:  #2dd36f;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        &:last-child{
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    }
+}
+#no-cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    #no-cart-message{
+        color: var(--ion-color-dark);
+        font-weight: 500;
+    }
+}
+
+.nav{
+    display: flex;
+    button{
+        background: none !important; 
+        color: #2dd36f;
+        font-weight: bold;
+    }
+}
+
+#quantity {
+    display: grid;
+}

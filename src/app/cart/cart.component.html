@@ -1,0 +1,31 @@
+<nav>
+  <ion-icon size="large" name="home-outline" (click)="redirectToHome()"></ion-icon>
+</nav>
+<header>
+  <h1>Cart</h1>
+  <h2>R$ {{cartService.totalValue}}</h2>
+</header>
+<section id="cart-list" *ngIf="itemsCart.length > 0">
+  <div class="card-item" *ngFor="let item of itemsCart">
+    <img src="{{ item.img }}"/>
+    <div id="infos">
+      <span id="title">{{item.title}}</span>
+      <div id="money-info">
+        <span id="quantity">Total: <span id="value">R$ {{item.value}}</span></span>
+        <span id="quantity">Quantity: <span id="value">{{item.quantity}}</span></span>
+      </div>
+    </div>
+    <div class="nav">
+      <button (click)="removeProduct(item.id)">X</button>
+    </div>
+  </div>
+</section>
+<section *ngIf="itemsCart.length <= 0">
+  <div id="no-cart">
+      <span id="no-cart-message">{{ 'The cart is empty' | uppercase }}</span>
+  </div>
+</section>
+<nav *ngIf="itemsCart.length > 0">
+  <button (click)="finishBuy()">Finish purchase</button>
+  <button (click)="clearCart()">Clear cart</button>
+</nav>
