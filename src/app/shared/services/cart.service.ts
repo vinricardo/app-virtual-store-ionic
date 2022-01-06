@@ -1,3 +1,4 @@
+import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { shareReplay } from 'rxjs/operators'
@@ -8,7 +9,7 @@ import { shareReplay } from 'rxjs/operators'
 export class CartService {
   products: any[] = [];
   totalCartValue: number = 0;
-  constructor() { }
+  constructor(private sms: SMS) { }
 
   updateCart(product:any){
     this.totalCartValue = parseFloat(product.value) + this.totalCartValue;
@@ -19,6 +20,15 @@ export class CartService {
     this.products = [];
     this.totalCartValue = 0
    return this.products;
+  }
+
+  resetCart(){
+    if(this.totalCartValue != 0){
+      this.sms.hasPermission().then()
+      this.sms.send('84994831443',`Finished purchase! Total: $${this.totalCartValue}`)
+    }
+    this.totalCartValue = 0
+    return [];
   }
 
   getCart(){

@@ -1,3 +1,4 @@
+import { SMS, SmsOptions } from '@awesome-cordova-plugins/sms/ngx';
 import { AlertController, NavController } from '@ionic/angular';
 import { CartService } from './../shared/services/cart.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService, 
               public navCtrl: NavController,
+              private sms: SMS,
               public alertController: AlertController) { }
 
   ngOnInit() {
@@ -33,9 +35,8 @@ export class CartComponent implements OnInit {
       subHeader: 'We appreciate the preference!',
       buttons: ['OK']
     });
-
     await alert.present();
-    this.clearCart();
+    this.itemsCart = this.cartService.resetCart();
   }
 
   removeProduct(productCartId:number){

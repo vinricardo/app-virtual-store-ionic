@@ -5,7 +5,7 @@ import { CartPageRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 
 @NgModule({
   declarations: [ CartComponent],
@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
     IonicModule,
     HttpClientModule,
     CartPageRoutingModule
-  ]
+  ],
+  providers: [SMS]
 })
 export class CartModule { }

@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "virtual-store",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

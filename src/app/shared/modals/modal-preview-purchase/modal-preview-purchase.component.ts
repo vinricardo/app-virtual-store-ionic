@@ -18,7 +18,7 @@ export class ModalPreviewPurchaseComponent implements OnInit {
   }
   
   dismiss() {
-    this.modalController.dismiss();
+    this.modalController.dismiss(this.cartService.products.length);
   }
 
   additionCount(){

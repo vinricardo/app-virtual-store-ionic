@@ -2,6 +2,9 @@
 <nav>
   <ion-icon size="large" name="cart-outline" (click)="redirectToCart()"></ion-icon>
 </nav>
+<p  class="ion-text-end" id="address-title" *ngIf="address$ | async as address">at 
+  {{ address.city_district }}, {{ address.state }}
+</p>
 <header id="first-header"></header>
 <h1 class="ion-text-center" id="section-title">Items</h1>
 <section>
