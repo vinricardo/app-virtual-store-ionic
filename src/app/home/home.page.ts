@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
-import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { Geolocation, Geoposition } from '@awesome-cordova-plugins/geolocation/ngx';
 import { dataMock } from '../shared/data/data-mock';
 import { ModalPreviewPurchaseComponent } from '../shared/modals/modal-preview-purchase/modal-preview-purchase.component';
-import {from, Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import {from, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { Toast } from '@awesome-cordova-plugins/toast/ngx';
 import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
@@ -20,12 +21,13 @@ export class HomePage implements OnInit {
   constructor(public modalController: ModalController, 
               private geolocation: Geolocation,
               private http: HttpClient,
-              public navCtrl: NavController) {
-                
+              public navCtrl: NavController, 
+              private toast: Toast) {
   }
 
   ngOnInit(){
     this.initGeoLocation();
+    this.toast.show('Every store with 30% discount', '5000', 'top').subscribe()
   }
 
   async initGeoLocation(){
@@ -34,7 +36,7 @@ export class HomePage implements OnInit {
     }, (err) => console.error(err))
     
    this.address$ = await this.geolocation.watchPosition().pipe(
-      switchMap((data:any) =>
+      switchMap((data:Geoposition) =>
         this.http.get(this.geolocationEndpoint.get(), {
           params: {
             lat: data.coords.latitude,

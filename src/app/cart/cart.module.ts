@@ -1,5 +1,5 @@
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CartPageRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
@@ -12,6 +12,7 @@ import { SMS } from '@awesome-cordova-plugins/sms/ngx';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     HttpClientModule,
     CartPageRoutingModule

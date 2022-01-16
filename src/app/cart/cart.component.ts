@@ -1,23 +1,40 @@
-import { SMS, SmsOptions } from '@awesome-cordova-plugins/sms/ngx';
 import { AlertController, NavController } from '@ionic/angular';
 import { CartService } from './../shared/services/cart.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Product } from '../shared/models/product.model';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  itemsCart: any[] = [];
-  totalCartValue: number;
+  itemsCart: Product[] = [];
+  totalCartValue!: any[];
+  cartTotal: any = parseFloat('0');
+  formGroup!:FormGroup;
 
   constructor(private cartService: CartService, 
               public navCtrl: NavController,
-              private sms: SMS,
-              public alertController: AlertController) { }
+              public alertController: AlertController,
+              private fb: FormBuilder
+              ) { }
+
+    createForm(){
+      this.formGroup = this.fb.group({
+        valueCart: ['']
+      })
+    }
 
   ngOnInit() {
-    this.itemsCart = this.cartService.getCart();
+    this.createForm()
+    this.cartService.getCart().then((res:Product[])=> {
+      this.itemsCart = res
+      this.totalCartValue = []
+      res.forEach(product => this.totalCartValue.push(product.value ?? parseFloat('0')))
+      this.formGroup.get('valueCart').patchValue(this.updateValueCart());
+    })
   }
 
   redirectToHome(){
@@ -25,7 +42,12 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(){
-    this.itemsCart = this.cartService.clearCart();
+    this.cartService.clearCart().then((res) => {
+      this.itemsCart = res
+      this.totalCartValue = []
+      res.forEach(product => this.totalCartValue.push(product.value ??  parseFloat('0')))
+      this.formGroup.get('valueCart').reset();
+    })
   }
 
   async finishBuy(){
@@ -36,12 +58,30 @@ export class CartComponent implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
-    this.itemsCart = this.cartService.resetCart();
+    this.clearCart();
   }
 
   removeProduct(productCartId:number){
-   this.cartService.removeProduct(productCartId);
-   this.itemsCart = this.cartService.getCart();
+    this.itemsCart = this.cartService.removeProduct(productCartId)
+    this.totalCartValue = []
+    this.itemsCart.forEach(product => this.totalCartValue.push(product.value ??  parseFloat('0')))
+    this.formGroup.get('valueCart').patchValue(this.updateRemoveValueCart());
   }
+
+  updateValueCart(){
+    this.totalCartValue.forEach(product => {
+      this.cartTotal = ( parseFloat(product) + this.cartTotal) ??  parseFloat('0');
+    })
+    return this.cartTotal.toFixed(2);
+  }
+
+  updateRemoveValueCart(){
+    this.cartTotal =  parseFloat('0');
+    this.totalCartValue.forEach(product => {
+      this.cartTotal = (  parseFloat(product) + this.cartTotal) ??  parseFloat('0');
+    })
+    return this.cartTotal.toFixed(2);
+  }
+
 
 }

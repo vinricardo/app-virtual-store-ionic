@@ -7,6 +7,8 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import {  HttpClientModule } from '@angular/common/http';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Toast } from '@awesome-cordova-plugins/toast/ngx';
 
 
 @NgModule({
@@ -17,7 +19,7 @@ import {  HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     HomePageRoutingModule
   ],
-  providers:[Geolocation],
+  providers:[Geolocation,NativeStorage,Toast],
   declarations: [HomePage],
 })
 export class HomePageModule {}

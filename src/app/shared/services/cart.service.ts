@@ -1,47 +1,45 @@
-import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { shareReplay } from 'rxjs/operators'
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   products: any[] = [];
   totalCartValue: number = 0;
-  constructor(private sms: SMS) { }
+  constructor(private nativeStorage: NativeStorage) {
+  }
 
   updateCart(product:any){
     this.totalCartValue = parseFloat(product.value) + this.totalCartValue;
     this.products.push(product)
+    this.nativeStorage.setItem('cart', this.products).then();
   }
 
-  clearCart(){
+  async clearCart(){
     this.products = [];
     this.totalCartValue = 0
+    await this.nativeStorage.remove('cart').then();
    return this.products;
   }
 
   resetCart(){
-    if(this.totalCartValue != 0){
-      this.sms.hasPermission().then()
-      this.sms.send('84994831443',`Finished purchase! Total: $${this.totalCartValue}`)
-    }
     this.totalCartValue = 0
     return [];
   }
 
-  getCart(){
+  async getCart(){
+    await this.nativeStorage.getItem('cart').then(res => {
+      this.products = res
+    });
     return this.products;
-  }
-
-  get totalValue(){
-    return this.totalCartValue.toFixed(2)
   }
 
   removeProduct(productCartId:number){
     const index = this.products.findIndex((item) => item.id==productCartId)
-    this.totalCartValue = this.totalCartValue - parseFloat(this.products[index].value);
     this.products.splice(index,1);
+    this.nativeStorage.setItem('cart', this.products).then();
+    return this.products;
   }
 }
